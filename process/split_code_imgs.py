@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on 2018/5/20
+
+@author: susmote
+"""
+
 import os
 from PIL import Image
 
