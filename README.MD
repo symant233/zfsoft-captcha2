@@ -1,10 +1,12 @@
-zfsoft [jwgl|jxgl] system captcha recognition v2
+### ZFsoft `[jwgl|jxgl]` system captcha recognition v2
 
 Inspired by https://github.com/AHU-HUI/AHU-JiaoWu
 Modified from scikit-learn to tensorflow.
 
+![GitHub repo size](https://img.shields.io/github/repo-size/symant233/zfsoft-captcha2) ![GitHub](https://img.shields.io/github/license/symant233/zfsoft-captcha2) ![GitHub All Releases](https://img.shields.io/github/downloads/symant233/zfsoft-captcha2/total)
+
 ### Usage
-```
+```bash
 pip install -r requirements.txt -U
 # 将需要预测的图片放入'./predict/'下
 python tensor.py
@@ -21,7 +23,6 @@ Due to the licence lacunae of original project, I added [MIT LICENCE](https://gi
 
 ```bash
 bash@zfsoft-captcha2$ tree
-├── LICENSE
 ├── model
 │   └── Model_tf.net      # tensorflow model created by trainer
 ├── predict
@@ -31,18 +32,12 @@ bash@zfsoft-captcha2$ tree
 ├── process
 │   ├── count_char.py     
 │   └── split_code_imgs.py
-├── README.MD
 ├── requirements.txt      
 ├── tensor.py             # project entry (trainer & predictor)
-└── train_data
-    ├── full
-    │   ├── 0.png
-    │   ├── 1.png
-    │   ├── ...
-    │   └── 299.png
-    ├── right_code.txt
-    └── single
-        ├── 0-0.png
-        ├── 0-1.png
-        └── ...
+├── train_data
+│   ├── full/
+│   ├── single/
+│   └── right_code.txt
+├── README.MD
+└── LICENSE
 ```
