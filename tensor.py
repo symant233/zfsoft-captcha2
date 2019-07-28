@@ -6,7 +6,7 @@ from tensorflow import keras
 
 def load_data():
     kv_dict = {}
-    with open('./train/right_code.txt') as f:
+    with open('./train_data/right_code.txt') as f:
         for pre, answers in enumerate(f):
             answers = answers.strip()
             answers = map(lambda x: x - 48 if x <= 57 else x - 87 if x <= 110 else x - 88, map(ord, answers))
@@ -38,7 +38,7 @@ def train(data, target, model_save):
     model.compile(optimizer='rmsprop',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-    model.fit(data, target, batch_size=128, epochs=40)
+    model.fit(data, target, batch_size=128, epochs=37)
     model.save(model_save)
 
 
@@ -66,15 +66,15 @@ def analyse(file_name, model):
 
 
 if __name__ == '__main__':
-    model_file = '../model/Model_tf.net'
+    model_file = './model/Model_tf.net'
     
-    # print('Training...')
-    # x_data, y_data = load_data()
-    # train(x_data, y_data, model_file)
+    print('Training...')
+    x_data, y_data = load_data()
+    train(x_data, y_data, model_file)
 
-    print('Predict...')
-    model = keras.models.load_model(model_file)
-    import os 
-    for file_name in os.listdir('predict'):
-        r = analyse(file_name, model)
-        print(file_name, ':', r)
+    # print('Predict...')
+    # model = keras.models.load_model(model_file)
+    # import os 
+    # for file_name in os.listdir('predict'):
+    #     r = analyse(file_name, model)
+    #     print(file_name, ':', r)
