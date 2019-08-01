@@ -53,20 +53,15 @@ Due to the licence lacunae of original project, I added [MIT LICENCE](https://gi
 bash@zfsoft-captcha2$ tree
 ├── model
 │   └── Model_tf.net      # tensorflow model created by trainer
-├── predict
-│   ├── 0jm8.png
-│   ├── 1atu.png          # predict folder
-│   └── 1r0q.png
+├── predict/              # predict folder
 ├── process   
 │   └── split_code_imgs.py
 ├── requirements.txt      
-├── trainer.py
-├── tensor.py             # project entry (trainer & predictor)
-├── train_data
-│   ├── full/
-│   ├── single/
-│   ├── test_sets/
-│   └── right_code.txt
+├── trainer.py            # train and test
+├── tensor.py             # predictor
+├── data
+│   ├── train/
+│   └── test_sets/
 ├── README.MD
 └── LICENSE
 ```

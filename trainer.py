@@ -42,12 +42,13 @@ def split_pic(img):
 
 
 def _load_data(folder):
+    "加载folder下的图片 返回图片numpy三维数组和其标记"
     count = 0
     imgs = os.listdir(folder)
     length = len(imgs)*4  # 49张图片(full)*4
     label = np.zeros(length, dtype="int8")
     data = np.zeros((length, 21, 16), dtype="int8")
-    # * 分配三维空数组, data.shape = (1200, 21, 16)
+    # * 分配三维空数组, data.shape = (length, 21, 16)
 
     for img_name in imgs:
         img = Image.open('%s/%s' % (folder, img_name)
@@ -65,11 +66,10 @@ if __name__ == "__main__":
     model_file = './model/Model_tf.net'
 
     print('Training...')
-    x_data, y_data = _load_data('./train_data/full/')
+    x_data, y_data = _load_data('./data/train/')
     train(x_data, y_data, model_file)
 
     print('\nTesting...')
-    folder = './train_data/test_sets/'
     model = keras.models.load_model(model_file)
-    x, y = _load_data(folder)
-    model.evaluate(x, y)
+    x, y = _load_data('./data/test_sets/')
+    model.evaluate(x, y) # 测试
