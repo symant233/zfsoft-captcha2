@@ -1,3 +1,4 @@
+import os
 from PIL import Image
 import numpy as np
 import tensorflow as tf
@@ -6,34 +7,6 @@ from tensorflow import keras
 
 def func(x): return x - 48 if x <= 57 else x - 87 if x <= 110 else x - 88
 # func(ord(x)) 0->0 a->10 z->35
-
-
-def _load_train():
-    "trainer function, return train img data and label"
-    kv_dict = {}
-    with open('./train_data/right_code.txt') as f:
-        for pre, answers in enumerate(f):
-            answers = answers.strip()  # rh0j like
-            answers = map(func, map(ord, answers))
-            for i, v in enumerate(answers):
-                kv_dict['%s-%d.png' % (pre, i)] = v
-    "将键值对应为 {'0-0.png': 26, ...} 0->0 a->10 z->35"
-
-    folder = './train_data/single'
-    imgs = kv_dict.keys()       # * imgs -> ['0-0.png', '0-1.png', ...]
-    length = len(imgs)          # * 1200张图片(single)
-    label = np.zeros(length, dtype="int8")
-    data = np.zeros((length, 21, 16), dtype="int8")
-    # * 分配三维空数组, data.shape = (1200, 21, 16)
-
-    for index, img_name in enumerate(imgs):
-        img = Image.open('%s/%s' % (folder, img_name)
-                         ).convert('L').convert('1')
-        data[index, :] = np.asarray(img, dtype="int8")
-        # ? 将(21*16)pixel的图片转成灰度图像数组, 像MNIST那样
-        label[index] = kv_dict[img_name]
-        # ! 注意不能用kv_dict.values() 需要是numpy对象
-    return data, label
 
 
 def train(data, target, model_save):
@@ -45,7 +18,7 @@ def train(data, target, model_save):
     model.compile(optimizer='rmsprop',                      # 优化
                   loss='sparse_categorical_crossentropy',   # 损失函数
                   metrics=['accuracy'])                     # 用准确率衡量
-    model.fit(data, target, batch_size=128, epochs=37)
+    model.fit(data, target, batch_size=128, epochs=36)
     # 梯度算法37次减少loss, acc接近0.99
     model.save(model_save)
 
@@ -68,11 +41,8 @@ def split_pic(img):
     return ar
 
 
-def _load_test():
-    "test function, return test sets"
-    import os
+def _load_data(folder):
     count = 0
-    folder = './train_data/test_sets/'
     imgs = os.listdir(folder)
     length = len(imgs)*4  # 49张图片(full)*4
     label = np.zeros(length, dtype="int8")
@@ -95,11 +65,11 @@ if __name__ == "__main__":
     model_file = './model/Model_tf.net'
 
     print('Training...')
-    x_data, y_data = _load_train()
+    x_data, y_data = _load_data('./train_data/full/')
     train(x_data, y_data, model_file)
 
-    print('Testing...')
+    print('\nTesting...')
+    folder = './train_data/test_sets/'
     model = keras.models.load_model(model_file)
-    x, y = _load_test()
+    x, y = _load_data(folder)
     model.evaluate(x, y)
-    "196/196 ... loss: 0.3462 - acc: 0.9286"

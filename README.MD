@@ -15,11 +15,14 @@ python tensor.py  # 将需要预测的图片放入'./predict/'下
 ```
 > 训练需自行取消 `tensor.py` 中的 `__main__` 注释部分
 
-### Test result
+### Result accuracy
 ```bash
-196/196 [==============================] - 0s 500us/sample - loss: 0.3462 - acc: 0.9286
+# train
+Epoch 36/36
+1200/1200 [==============================] - 0s 47us/sample - loss: 0.0321 - acc: 0.9967
+# test
+196/196 [==============================] - 0s 476us/sample - loss: 0.1501 - acc: 0.9643
 ```
-Train , test and predict is very fast and accuracy is up to 92.8% for these test sets.
 
 ### Todo List
  - ~~Add some test sets.~~ (Done)
