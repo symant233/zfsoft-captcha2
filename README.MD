@@ -8,14 +8,11 @@ Modified from `scikit-learn` into `tensorflow`. Add more comments for tutorial u
 ### Usage
 ```bash
 pip install -r requirements.txt -U
-
 python trainer.py # train your own model
-
 python predictor.py  # 预测'./predict/'下的图片
-
+# new
 python app.py # flask sever to predict incoming data
 ```
-> 训练需自行取消 `tensor.py` 中的 `__main__` 注释部分
 
 ### Result accuracy
 ```bash
@@ -59,11 +56,11 @@ Or using some python code below with the `api` (this is POST only)
 import requests
 
 with open('Check.gif', 'rb') as f:
-    data = f.read()
+    stream = f.read()
 
-a = requests.post('http://127.0.0.1:5000/api', data=data)
-if a.status_code == 200:
-    print(a.text)
+r = requests.post('http://127.0.0.1:5000/api', data=stream)
+if r.status_code == 200:
+    print(r.text)
 ```
 
 ### Licence
@@ -71,6 +68,7 @@ Due to the licence lacunae of original project, I added [MIT LICENCE](https://gi
 
 ```bash
 bash@zfsoft-captcha2$ tree
+├── app.py                # flask sever (predictor)
 ├── model
 │   └── Model_tf.net      # tensorflow model created by trainer
 ├── predict/              # predict folder
@@ -78,10 +76,10 @@ bash@zfsoft-captcha2$ tree
 │   └── split_code_imgs.py
 ├── requirements.txt      
 ├── trainer.py            # train and test
-├── tensor.py             # predictor
+├── predictor.py          # predictor
 ├── data
-│   ├── train/
-│   └── test_sets/
+│   ├── train/            # train images
+│   └── test_sets/        # test images
 ├── README.MD
 └── LICENSE
 ```
