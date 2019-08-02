@@ -11,7 +11,9 @@ pip install -r requirements.txt -U
 
 python trainer.py # train your own model
 
-python tensor.py  # 将需要预测的图片放入'./predict/'下
+python predictor.py  # 预测'./predict/'下的图片
+
+python app.py # flask sever to predict incoming data
 ```
 > 训练需自行取消 `tensor.py` 中的 `__main__` 注释部分
 
@@ -27,7 +29,7 @@ Epoch 36/36
 ### Todo List
  - ~~Add some test sets.~~ (Done)
  - *More comments (for tutorial).*
- - run a flask sever to predict incoming pic data
+ - ~~run a flask sever to predict incoming pic data~~ (Done)
  - image_splite improve.
  - ~~`unitest` & `travis-ci`~~ (Abort)
  - command line argv support
@@ -46,8 +48,26 @@ Epoch 36/36
  - [Tensorflow official tutorial](https://www.tensorflow.org/tutorials) /
 *均支持简体中文*
 
+### Flask sever
+```bash
+python app.py # run this first
+```
+You can go to http://127.0.0.1:5000/upload see the demo.
+
+Or using some python code below with the `api` (this is POST only) 
+```python
+import requests
+
+with open('Check.gif', 'rb') as f:
+    data = f.read()
+
+a = requests.post('http://127.0.0.1:5000/api', data=data)
+if a.status_code == 200:
+    print(a.text)
+```
+
 ### Licence
-Due to the licence lacunae of original project, I added [MIT LICENCE](https://github.com/symant233/zfsoft-captcha2/blob/master/LICENSE) to my codes. The contents' copyright that in `./process/splite_code_imgs.py` and `./train_data/[full/single/right_code.txt]` are belong to @AHU-HUI.
+Due to the licence lacunae of original project, I added [MIT LICENCE](https://github.com/symant233/zfsoft-captcha2/blob/master/LICENSE) to my codes. The split picture codes' copyright are belong to @AHU-HUI.
 
 ```bash
 bash@zfsoft-captcha2$ tree

@@ -1,10 +1,11 @@
+from io import BytesIO
 from PIL import Image
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
 
-def split_pic(img):
+def split_pic(img) -> dict:
     """img = Image.open('captcha.png')
     returns a dict using np.asarray()
     """
@@ -22,12 +23,13 @@ def split_pic(img):
     return ar
 
 
-def analyse(file_name, model) -> dict:
-    """先载入保存的model, 传入model对象来进行分析, 
+def analyse(stream, model) -> dict:
+    """stream = open(file, 'rb').read()
+    先载入保存的model, 传入model对象来进行分析, 
     model = keras.models.load_model('../model/m.net')
     """
     def func(x): return x + 48 if x <= 9 else x + 87 if x <= 23 else x + 88
-    image = Image.open('./predict/%s' % file_name).convert('L').convert('1')
+    image = Image.open(BytesIO(stream))
     # 先转化为灰度图像,  再转化为[0|1]值图像
     result = []
     data = np.zeros((1, 21, 16), dtype="int8")
@@ -47,5 +49,6 @@ if __name__ == '__main__':
     model = keras.models.load_model(model_file)
     import os
     for file_name in os.listdir('predict'):  # 遍历目录文件预测
-        r = analyse(file_name, model)
-        print(file_name, ':', r)
+        with open('./predict/'+ file_name, 'rb') as f:
+            r = analyse(f.read(), model)
+            print(file_name, ':', r)
