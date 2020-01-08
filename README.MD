@@ -45,7 +45,9 @@ Epoch 36/36
  - [Tensorflow official tutorial](https://www.tensorflow.org/tutorials) /
 *均支持简体中文*
 
-### Flask sever
+### Flask sever [optional usage]
+> This is optional, you can use `predictor.py` alone by adding pictures into the `predict` folder. Or transmit picture data stream to the flask server.
+
 ```bash
 python app.py # run this first
 ```
