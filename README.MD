@@ -14,6 +14,8 @@ python predictor.py  # 预测'./predict/'下的图片
 python app.py # flask sever to predict incoming data
 ```
 
+Target image examples: ![](./predict/0jm8.png) ![](./data/test_sets/r6xe.png) ![](./data/train/5yeg.png)
+
 ### Result accuracy
 ```bash
 # train
